@@ -1,0 +1,29 @@
+{
+    "name": "chgst/persistence-doctrine",
+    "description": "Doctrine implementation for data store",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "chgst/common":"@dev",
+        "doctrine/common": "^2"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "spec/"
+        }
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^5.0"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:chgst/common.git"
+        }
+    ]
+}
