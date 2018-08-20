@@ -1,6 +1,6 @@
 <?php
 
-namespace Changeset\Aggregate;
+namespace Changeset\Event;
 
 use Changeset\Event\EventInterface;
 use Changeset\Event\RepositoryInterface;

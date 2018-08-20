@@ -1,12 +1,11 @@
 <?php
 
-namespace spec\Changeset\Aggregate;
+namespace spec\Changeset\Event;
 
-use Changeset\Aggregate\ObjectRepository;
 use Changeset\Event\EventInterface;
+use Changeset\Event\ObjectRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ObjectRepositorySpec extends ObjectBehavior
 {
