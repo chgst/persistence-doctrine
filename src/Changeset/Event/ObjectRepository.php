@@ -2,8 +2,6 @@
 
 namespace Changeset\Event;
 
-use Changeset\Event\EventInterface;
-use Changeset\Event\RepositoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class ObjectRepository implements RepositoryInterface
@@ -24,5 +22,6 @@ class ObjectRepository implements RepositoryInterface
     public function append(EventInterface $event)
     {
         $this->manager->persist($event);
+        $this->manager->flush($event);
     }
 }
