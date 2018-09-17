@@ -3,8 +3,6 @@
 namespace Changeset\Event;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ODM\MongoDB\Query\Builder;
-use Doctrine\ORM\QueryBuilder;
 
 class ObjectRepository implements RepositoryInterface
 {
@@ -61,7 +59,6 @@ class ObjectRepository implements RepositoryInterface
 
     private function getMongoDbIterator($repository)
     {
-        /** @var Builder $qb */
         $qb = $repository->createQueryBuilder('e');
 
         return $qb
@@ -73,7 +70,6 @@ class ObjectRepository implements RepositoryInterface
 
     private function getORMIterator($repository)
     {
-        /** @var QueryBuilder $qb */
         $qb = $repository->createQueryBuilder('e');
 
         return $qb
