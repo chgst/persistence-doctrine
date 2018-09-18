@@ -29,9 +29,8 @@ services:
 Create your model class:
 
 ```php
-// src/AppBundle/{Entity|Document}/MyEvent.php
 <?php
-
+# src/AppBundle/{Entity|Document}/MyEvent.php
 namespace AppBundle\Document;
 // namespace AppBundle\Entity;
 
