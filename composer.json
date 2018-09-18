@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "chgst/common":"@dev",
+        "chgst/common":"^0.1",
         "doctrine/common": "^2"
     },
     "autoload": {
@@ -24,12 +24,6 @@
         "doctrine/orm": "^2.6",
         "doctrine/mongodb-odm": "^1.2"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github.com:chgst/common.git"
-        }
-    ],
     "config": {
         "bin-dir": "bin",
         "platform": {
