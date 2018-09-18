@@ -44,12 +44,12 @@ class ObjectRepository implements RepositoryInterface
             return $repository->getIterator();
         }
 
-        if (is_subclass_of($repository, 'Doctrine\ODM\MongoDB\DocumentRepository'))
+        if (is_a($repository, 'Doctrine\ODM\MongoDB\DocumentRepository'))
         {
             return $this->getMongoDbIterator($repository);
         }
 
-        if(is_subclass_of($repository, 'Doctrine\ORM\EntityRepository'))
+        if(is_a($repository, 'Doctrine\ORM\EntityRepository'))
         {
             return $this->getORMIterator($repository);
         }
@@ -73,7 +73,7 @@ class ObjectRepository implements RepositoryInterface
         $qb = $repository->createQueryBuilder('e');
 
         return $qb
-            ->orderBy('e.createdAt ASC')
+            ->orderBy('e.createdAt','ASC')
             ->getQuery()
             ->iterate()
         ;

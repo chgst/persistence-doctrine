@@ -77,7 +77,7 @@ class ObjectRepositorySpec extends ObjectBehavior
         $repository->createQueryBuilder(Argument::any())->willReturn($queryBuilder);
 
         $queryBuilder->getQuery()->willReturn($query);
-        $queryBuilder->orderBy(Argument::any())->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->orderBy(Argument::any(), Argument::any())->shouldBeCalled()->willReturn($queryBuilder);
 
         $query->iterate()->willReturn($iterator);
 
