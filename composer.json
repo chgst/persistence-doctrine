@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "chgst/common":"^0.1",
+        "chgst/common":"*",
         "doctrine/common": "^2"
     },
     "autoload": {
@@ -18,9 +18,9 @@
         }
     },
     "require-dev": {
-        "phpspec/phpspec": "^4.0",
-        "leanphp/phpspec-code-coverage": "^4.2",
-        "php-coveralls/php-coveralls": "^2.1",
+        "phpspec/phpspec": "^6",
+        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
+        "php-coveralls/php-coveralls": "^2.2",
         "doctrine/orm": "^2.6",
         "doctrine/mongodb-odm": "^1.2"
     },
