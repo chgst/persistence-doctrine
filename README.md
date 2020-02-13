@@ -1,5 +1,7 @@
 # Doctrine data store for Repository interface
 
+<!-- 0.2.0 -->
+
 [![Version](https://img.shields.io/packagist/v/chgst/persistence-doctrine.svg?style=flat-square)](https://packagist.org/packages/chgst/persistence-doctrine)
 [![Build Status](https://travis-ci.org/chgst/persistence-doctrine.svg?branch=develop)](https://travis-ci.org/chgst/persistence-doctrine)
 [![Coverage Status](https://coveralls.io/repos/github/chgst/persistence-doctrine/badge.svg?branch=develop)](https://coveralls.io/github/chgst/persistence-doctrine?branch=develop)
