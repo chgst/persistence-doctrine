@@ -37,7 +37,7 @@ class ObjectRepositorySpec extends ObjectBehavior
     function it_can_append_event_to_data_store(ObjectManager $manager, EventInterface $event)
     {
         $manager->persist($event)->shouldBeCalled();
-        $manager->flush($event)->shouldBeCalled();
+        $manager->flush()->shouldBeCalled();
 
         $this->append($event);
     }

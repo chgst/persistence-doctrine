@@ -32,7 +32,7 @@ class ObjectRepository implements RepositoryInterface
     public function append(EventInterface $event)
     {
         $this->manager->persist($event);
-        $this->manager->flush($event);
+        $this->manager->flush();
     }
 
     public function getIterator(): \Iterator
