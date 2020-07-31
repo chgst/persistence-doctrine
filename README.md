@@ -1,6 +1,6 @@
 # Doctrine data store for Repository interface
 
-<!-- 0.2.0 -->
+<!-- 0.2.1 -->
 
 [![Version](https://img.shields.io/packagist/v/chgst/persistence-doctrine.svg?style=flat-square)](https://packagist.org/packages/chgst/persistence-doctrine)
 [![Build Status](https://travis-ci.org/chgst/persistence-doctrine.svg?branch=develop)](https://travis-ci.org/chgst/persistence-doctrine)
