@@ -3,9 +3,8 @@
 <!-- 0.2.1 -->
 
 [![Version](https://img.shields.io/packagist/v/chgst/persistence-doctrine.svg?style=flat-square)](https://packagist.org/packages/chgst/persistence-doctrine)
-[![Build Status](https://travis-ci.org/chgst/persistence-doctrine.svg?branch=develop)](https://travis-ci.org/chgst/persistence-doctrine)
+[![CircleCI](https://circleci.com/gh/chgst/persistence-doctrine.svg?style=shield)](https://circleci.com/gh/chgst/persistence-doctrine)
 [![Coverage Status](https://coveralls.io/repos/github/chgst/persistence-doctrine/badge.svg?branch=develop)](https://coveralls.io/github/chgst/persistence-doctrine?branch=develop)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chgst/persistence-doctrine/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/chgst/persistence-doctrine/?branch=develop)
 [![License](https://poser.pugx.org/chgst/persistence-doctrine/license.svg)](https://packagist.org/packages/chgst/persistence-doctrine)
 
 ## Installation
@@ -32,9 +31,9 @@ Create your model class:
 
 ```php
 <?php
-# src/AppBundle/{Entity|Document}/MyEvent.php
-namespace AppBundle\Document;
-// namespace AppBundle\Entity;
+# src/{Entity|Document}/MyEvent.php
+namespace App\Document;
+// namespace App\Entity;
 
 class MyEvent extends Changeset\Event\Event
 {
@@ -49,27 +48,20 @@ class MyEvent extends Changeset\Event\Event
 
 Add mapping
 
-```yaml
-# src/AppBundle/Resources/doctrine/MyEvent.{orm|mongodb}.yml
+```xml
+ <doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    https://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-AppBundle\Document\Event: # or AppBundle\Entity\Event
-  fields:
-    id:
-      id: true
-    name:
-      type: string
-    aggregateType:
-      type: string
-      name: aggregate_type
-    aggregateId:
-      type: string
-      name: aggregate_id
-    payload:
-      type: hash # or string (or something to store json)
-    createdAt:
-      type: date
-      name: created_at
-    createdBy:
-      type: string
-      name: created_by
+    <document name="App\Document\Event">
+        <id />
+        <field field-name="name" type="string" nullable="false" />
+        <field field-name="aggregateType" type="string" nullable="false" />
+        <field field-name="aggregateId" type="string" nullable="false" />
+        <field field-name="payload" type="hash" nullable="false" />
+        <field field-name="createdAt" type="date" nullable="false" />
+        <field field-name="createdBy" type="string" nullable="false" />
+    </document>
+</doctrine-mongo-mapping>
 ```
