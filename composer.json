@@ -4,8 +4,8 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "chgst/common":"*",
-        "doctrine/common": "^2"
+        "chgst/common":"^0.3.1",
+        "doctrine/persistence": "^3.2"
     },
     "autoload": {
         "psr-4": {
@@ -14,20 +14,20 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "spec/"
+            "spec\\": "spec/"
         }
     },
     "require-dev": {
-        "phpspec/phpspec": "^6",
-        "friends-of-phpspec/phpspec-code-coverage": "^4.3",
-        "php-coveralls/php-coveralls": "^2.2",
-        "doctrine/orm": "^2.6",
-        "doctrine/mongodb-odm": "^1.2"
+        "phpspec/phpspec": "^7.4.0",
+        "friends-of-phpspec/phpspec-code-coverage": "^v6.3.0",
+        "php-coveralls/php-coveralls": "^v2.6.0",
+        "doctrine/orm": "^2.16.2",
+        "doctrine/mongodb-odm": "^2.5.2",
+        "dg/bypass-finals": "^1.5"
     },
     "config": {
-        "bin-dir": "bin",
         "platform": {
-            "php": "7.2"
+            "php": "8.2"
         }
     }
 }
