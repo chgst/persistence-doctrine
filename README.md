@@ -1,7 +1,5 @@
 # Doctrine data store for Repository interface
 
-<!-- 0.2.1 -->
-
 [![Version](https://img.shields.io/packagist/v/chgst/persistence-doctrine.svg?style=flat-square)](https://packagist.org/packages/chgst/persistence-doctrine)
 [![CircleCI](https://circleci.com/gh/chgst/persistence-doctrine.svg?style=shield)](https://circleci.com/gh/chgst/persistence-doctrine)
 [![Coverage Status](https://coveralls.io/repos/github/chgst/persistence-doctrine/badge.svg?branch=develop)](https://coveralls.io/github/chgst/persistence-doctrine?branch=develop)
@@ -20,9 +18,9 @@ composer require chgst/persistence-doctrine
 
 services:
 
-    Changeset\Event\RepositoryInterface:
+    Chgst\Event\RepositoryInterface:
         public: true
-        class: Changeset\Event\ObjectRepository
+        class: Chgst\Event\ObjectRepository
         arguments: [ '@doctrine_mongodb.odm.document_manager' ] # or '@doctrine.orm.entity_manager'
 
 ```
