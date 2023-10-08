@@ -1,7 +1,7 @@
 # Doctrine data store for Repository interface
 
 [![Version](https://img.shields.io/packagist/v/chgst/persistence-doctrine.svg?style=flat-square)](https://packagist.org/packages/chgst/persistence-doctrine)
-[![CircleCI](https://circleci.com/gh/chgst/persistence-doctrine.svg?style=shield)](https://circleci.com/gh/chgst/persistence-doctrine)
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/UiMSDe5Q43N7rRZKowVuq2/M9aAirJaHrCa9RQijVSTV1/tree/develop.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/circleci/UiMSDe5Q43N7rRZKowVuq2/M9aAirJaHrCa9RQijVSTV1/tree/develop)
 [![Coverage Status](https://coveralls.io/repos/github/chgst/persistence-doctrine/badge.svg?branch=develop)](https://coveralls.io/github/chgst/persistence-doctrine?branch=develop)
 [![License](https://poser.pugx.org/chgst/persistence-doctrine/license.svg)](https://packagist.org/packages/chgst/persistence-doctrine)
 
