@@ -4,8 +4,8 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "chgst/common":"@dev",
-        "doctrine/persistence": "@dev"
+        "chgst/common":"^0.3.1",
+        "doctrine/persistence": "^3.2.0"
     },
     "autoload": {
         "psr-4": {
