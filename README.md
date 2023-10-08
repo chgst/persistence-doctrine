@@ -1,11 +1,8 @@
 # Doctrine data store for Repository interface
 
-<!-- 0.2.1 -->
-
 [![Version](https://img.shields.io/packagist/v/chgst/persistence-doctrine.svg?style=flat-square)](https://packagist.org/packages/chgst/persistence-doctrine)
-[![Build Status](https://travis-ci.org/chgst/persistence-doctrine.svg?branch=develop)](https://travis-ci.org/chgst/persistence-doctrine)
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/UiMSDe5Q43N7rRZKowVuq2/M9aAirJaHrCa9RQijVSTV1/tree/develop.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/circleci/UiMSDe5Q43N7rRZKowVuq2/M9aAirJaHrCa9RQijVSTV1/tree/develop)
 [![Coverage Status](https://coveralls.io/repos/github/chgst/persistence-doctrine/badge.svg?branch=develop)](https://coveralls.io/github/chgst/persistence-doctrine?branch=develop)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/chgst/persistence-doctrine/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/chgst/persistence-doctrine/?branch=develop)
 [![License](https://poser.pugx.org/chgst/persistence-doctrine/license.svg)](https://packagist.org/packages/chgst/persistence-doctrine)
 
 ## Installation
@@ -16,60 +13,50 @@ composer require chgst/persistence-doctrine
 
 ## Configuration
 
-```yaml
-#app/config/services.yml
-
-services:
-
-    Changeset\Event\RepositoryInterface:
-        public: true
-        class: Changeset\Event\ObjectRepository
-        arguments: [ '@doctrine_mongodb.odm.document_manager' ] # or '@doctrine.orm.entity_manager'
-
-```
-
 Create your model class:
 
 ```php
 <?php
-# src/AppBundle/{Entity|Document}/MyEvent.php
-namespace AppBundle\Document;
-// namespace AppBundle\Entity;
+// src/Document/DefaultEvent.php
 
-class MyEvent extends Changeset\Event\Event
+namespace Document;
+
+use Chgst\Event\Event;
+
+class DefaultEvent extends Event
 {
-    private $id;
-    
-    public function getId() { return $this->id; }
-    
-    public function setId($id) { $this->id = $id; }
-}
+    protected string $id;
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+}
 ```
 
 Add mapping
 
-```yaml
-# src/AppBundle/Resources/doctrine/MyEvent.{orm|mongodb}.yml
+```xml
+ <doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    https://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-AppBundle\Document\Event: # or AppBundle\Entity\Event
-  fields:
-    id:
-      id: true
-    name:
-      type: string
-    aggregateType:
-      type: string
-      name: aggregate_type
-    aggregateId:
-      type: string
-      name: aggregate_id
-    payload:
-      type: hash # or string (or something to store json)
-    createdAt:
-      type: date
-      name: created_at
-    createdBy:
-      type: string
-      name: created_by
+    <document name="Document\Event">
+        <id />
+        <field field-name="name" type="string" nullable="false" />
+        <field field-name="aggregateType" type="string" nullable="false" />
+        <field field-name="aggregateId" type="string" nullable="false" />
+        <field field-name="payload" type="hash" nullable="false" />
+        <field field-name="createdAt" type="date" nullable="false" />
+        <field field-name="createdBy" type="string" nullable="false" />
+    </document>
+</doctrine-mongo-mapping>
 ```

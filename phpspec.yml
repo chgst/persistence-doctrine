@@ -1,10 +1,11 @@
 extensions:
-  LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
-    blacklist: [ 'spec', 'vendor' ]
+  FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
+    blacklist: [ 'features', 'spec', 'vendor']
     format:
-      - clover
       - html
-
+      - cobertura
+      - clover
     output:
-      clover: build/logs/clover.xml
       html: build/coverage
+      cobertura: build/logs/cobertura.xml
+      clover: build/logs/clover.xml

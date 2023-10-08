@@ -1,23 +1,16 @@
 <?php
 
-namespace Changeset\Event;
+namespace Chgst\Event;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class ObjectRepository implements RepositoryInterface
 {
-    /** @var ObjectManager */
-    private $manager;
 
-    /** @var string */
-    private $eventClass;
+    private ObjectManager $manager;
 
-    /**
-     * ObjectRepository constructor.
-     *
-     * @param ObjectManager $manager
-     * @param string $eventClass
-     */
+    private string $eventClass;
+
     public function __construct(ObjectManager $manager, string $eventClass)
     {
         $this->manager = $manager;
@@ -39,19 +32,20 @@ class ObjectRepository implements RepositoryInterface
     {
         $repository = $this->manager->getRepository($this->eventClass);
 
-        if (method_exists($repository, 'getIterator'))
+        if ($repository)
         {
-            return $repository->getIterator();
-        }
-
-        if (is_a($repository, 'Doctrine\ODM\MongoDB\DocumentRepository'))
-        {
-            return $this->getMongoDbIterator($repository);
-        }
-
-        if(is_a($repository, 'Doctrine\ORM\EntityRepository'))
-        {
-            return $this->getORMIterator($repository);
+            if (method_exists($repository, 'getIterator'))
+            {
+                return $repository->getIterator();
+            }
+            if (is_a($repository, 'Doctrine\ODM\MongoDB\Repository\DocumentRepository'))
+            {
+                return $this->getMongoDbIterator($repository);
+            }
+            if (is_a($repository, 'Doctrine\ORM\EntityRepository'))
+            {
+                return $this->getORMIterator($repository);
+            }
         }
 
         throw new \InvalidArgumentException('Unable to construct iterator');

@@ -1,19 +1,21 @@
 <?php
 
-namespace spec\Changeset\Event;
+namespace spec\Chgst\Event;
 
-use Changeset\Common\HasPayloadTrait;
-use Changeset\Common\OnAggregateTrait;
-use Changeset\Event\EventInterface;
-use Changeset\Event\EventTrait;
-use Changeset\Event\ObjectRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ODM\MongoDB\DocumentRepository;
+use Chgst\Common\HasPayloadTrait;
+use Chgst\Common\OnAggregateTrait;
+use Chgst\Event\EventInterface;
+use Chgst\Event\EventTrait;
+use Chgst\Event\ObjectRepository;
+use DG\BypassFinals;
+use Doctrine\ODM\MongoDB\Iterator\Iterator;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ODM\MongoDB\Query\Query;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -21,6 +23,7 @@ class ObjectRepositorySpec extends ObjectBehavior
 {
     function let(ObjectManager $manager)
     {
+        BypassFinals::enable();
         $this->beConstructedWith($manager, TestEvent::class);
     }
 
@@ -89,20 +92,23 @@ class ObjectRepositorySpec extends ObjectBehavior
         DocumentRepository $repository,
         Builder $queryBuilder,
         Query $query,
-        \Iterator $iterator
+        Iterator $iterator
     )
     {
         $manager->getRepository(Argument::any())->willReturn($repository);
 
         $repository->createQueryBuilder(Argument::any())->willReturn($queryBuilder);
 
-        $queryBuilder->getQuery()->willReturn($query);
         $queryBuilder->sort(Argument::any(), Argument::any())->shouldBeCalled()->willReturn($queryBuilder);
+
+        $queryBuilder->getQuery()->willReturn($query);
 
         $query->getIterator()->willReturn($iterator);
 
         $this->getIterator();
     }
+
+
 }
 
 

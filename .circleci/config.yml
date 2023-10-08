@@ -1,0 +1,44 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/configuration-reference
+version: 2.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/configuration-reference/#jobs
+orbs:
+  coveralls: coveralls/coveralls@2.2.1
+jobs:
+  default:
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/configuration-reference/#executor-job
+    docker:
+      - image: cimg/php:8.2
+    # Add steps to the job
+    # See: https://circleci.com/docs/configuration-reference/#steps
+    steps:
+      - checkout
+      - run: sudo pecl channel-update pecl.php.net
+      - run: sudo pecl install xdebug && sudo docker-php-ext-enable xdebug
+      - run: echo -e "xdebug.mode=coverage" | sudo tee /etc/php.d/xdebug.ini > /dev/null
+      - run: curl -s https://getcomposer.org/installer | php
+      - run:
+          name: "install deps"
+          command: php composer.phar update --prefer-dist --ignore-platform-reqs
+          env:
+            COMPOSER_MEMORY_LIMIT: -1
+      - run:
+          name: "run test"
+          command: mkdir -p build/tests && vendor/bin/phpspec run -fjunit > build/tests/test-results.xml
+      - store_artifacts:
+          path: build/logs/
+      - store_test_results:
+          path: build/tests/
+      - coveralls/upload
+
+
+
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/configuration-reference/#workflows
+workflows:
+  default-workflow:
+    jobs:
+      - default
