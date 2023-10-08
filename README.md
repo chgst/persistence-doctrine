@@ -13,35 +13,32 @@ composer require chgst/persistence-doctrine
 
 ## Configuration
 
-```yaml
-#app/config/services.yml
-
-services:
-
-    Chgst\Event\RepositoryInterface:
-        public: true
-        class: Chgst\Event\ObjectRepository
-        arguments: [ '@doctrine_mongodb.odm.document_manager' ] # or '@doctrine.orm.entity_manager'
-
-```
-
 Create your model class:
 
 ```php
 <?php
-# src/{Entity|Document}/MyEvent.php
-namespace App\Document;
-// namespace App\Entity;
+// src/Document/DefaultEvent.php
 
-class MyEvent extends Changeset\Event\Event
+namespace Document;
+
+use Chgst\Event\Event;
+
+class DefaultEvent extends Event
 {
-    private $id;
-    
-    public function getId() { return $this->id; }
-    
-    public function setId($id) { $this->id = $id; }
-}
+    protected string $id;
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+}
 ```
 
 Add mapping
@@ -52,7 +49,7 @@ Add mapping
                          xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     https://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="App\Document\Event">
+    <document name="Document\Event">
         <id />
         <field field-name="name" type="string" nullable="false" />
         <field field-name="aggregateType" type="string" nullable="false" />
