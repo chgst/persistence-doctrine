@@ -27,7 +27,7 @@ jobs:
             COMPOSER_MEMORY_LIMIT: -1
       - run:
           name: "run test"
-          command: vendor/bin/phpspec run -fjunit > build/logs/junit.xml
+          command: mkdir -p build/logs && vendor/bin/phpspec run -fjunit > build/logs/junit.xml
       - store_artifacts:
           path: build/logs/clover.xml
       - store_test_results:
