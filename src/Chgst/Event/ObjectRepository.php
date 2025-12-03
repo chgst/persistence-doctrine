@@ -34,42 +34,61 @@ class ObjectRepository implements RepositoryInterface
 
         if ($repository)
         {
-            if (method_exists($repository, 'getIterator'))
+            if ($repository instanceof \IteratorAggregate)
             {
                 return $repository->getIterator();
             }
-            if (is_a($repository, 'Doctrine\ODM\MongoDB\Repository\DocumentRepository'))
+
+            if (method_exists($repository, 'createQueryBuilder'))
             {
-                return $this->getMongoDbIterator($repository);
-            }
-            if (is_a($repository, 'Doctrine\ORM\EntityRepository'))
-            {
-                return $this->getORMIterator($repository);
+                $queryBuilder = $repository->createQueryBuilder('e');
+
+                if (method_exists($queryBuilder, 'sort'))
+                {
+                    return $this->getMongoDbIterator($queryBuilder);
+                }
+
+                if (method_exists($queryBuilder, 'orderBy'))
+                {
+                    return $this->getORMIterator($queryBuilder);
+                }
             }
         }
 
         throw new \InvalidArgumentException('Unable to construct iterator');
     }
 
-    private function getMongoDbIterator($repository)
+    private function getMongoDbIterator($queryBuilder)
     {
-        $qb = $repository->createQueryBuilder('e');
-
-        return $qb
+        $query = $queryBuilder
             ->sort('createdAt', 'asc')
             ->getQuery()
-            ->getIterator()
         ;
+
+        if (method_exists($query, 'toIterator'))
+        {
+            $iterator = $query->toIterator();
+
+            return $iterator instanceof \Iterator ? $iterator : new \IteratorIterator(new \ArrayIterator($iterator));
+        }
+
+        return $query->getIterator();
     }
 
-    private function getORMIterator($repository)
+    private function getORMIterator($queryBuilder)
     {
-        $qb = $repository->createQueryBuilder('e');
-
-        return $qb
+        $query = $queryBuilder
             ->orderBy('e.createdAt','ASC')
             ->getQuery()
-            ->iterate()
         ;
+
+        if (method_exists($query, 'toIterable'))
+        {
+            $iterator = $query->toIterable();
+
+            return $iterator instanceof \Iterator ? $iterator : new \IteratorIterator(new \ArrayIterator(is_array($iterator) ? $iterator : iterator_to_array($iterator)));
+        }
+
+        return $query->iterate();
     }
 }
