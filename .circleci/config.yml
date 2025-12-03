@@ -16,6 +16,8 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
+      - run: sudo pecl channel-update pecl.php.net
+      - run: sudo pecl install xdebug && sudo docker-php-ext-enable xdebug
       - run: echo -e "xdebug.mode=coverage" | sudo tee /etc/php.d/xdebug.ini > /dev/null
       - run: curl -s https://getcomposer.org/installer | php
       - run:
