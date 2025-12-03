@@ -16,6 +16,7 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
+      - run: echo -e "xdebug.mode=coverage" | sudo tee /etc/php.d/xdebug.ini > /dev/null
       - run: curl -s https://getcomposer.org/installer | php
       - run:
           name: "install deps"
