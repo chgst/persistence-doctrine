@@ -5,13 +5,13 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 orbs:
-  coveralls: coveralls/coveralls@2.2.1
+  coveralls: coveralls/coveralls@2.2.5
 jobs:
   default:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      - image: cimg/php:8.2
+      - image: cimg/php:8.4
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
