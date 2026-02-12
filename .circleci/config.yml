@@ -20,7 +20,7 @@ jobs:
       - run: curl -s https://getcomposer.org/installer | php
       - run:
           name: "install deps"
-          command: php composer.phar update --prefer-dist --ignore-platform-reqs
+          command: php composer.phar update --prefer-dist --ignore-platform-req=ext-mongodb
           env:
             COMPOSER_MEMORY_LIMIT: -1
       - run:
