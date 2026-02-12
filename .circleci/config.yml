@@ -16,8 +16,7 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
-      - run: sudo docker-php-ext-enable xdebug
-      - run: echo "xdebug.mode=coverage" | sudo tee -a "$(php -d 'display_errors=stderr' -r 'echo php_ini_scanned_dir();')/99-xdebug.ini"
+      - run: sudo pecl install pcov && echo "extension=pcov.so" | sudo tee "$(php -d 'display_errors=stderr' -r 'echo php_ini_scanned_dir();')/99-pcov.ini"
       - run: curl -s https://getcomposer.org/installer | php
       - run:
           name: "install deps"
