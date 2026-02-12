@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.4.1 created on 2026-02-12
+
+* `b65ee5f` updates circleci config (Janusz Slota)
+* `a203243` updates circleci config (Janusz Slota)
+* `f5818f3` updates circleci config (Janusz Slota)
+* `43aa9f1` updates circleci config (Janusz Slota)
+* `33b7cc4` updates circleci config (Janusz Slota)
+* `d09d353` updates circleci config (Janusz Slota)
+
 ## Version 0.4.0 created on 2026-02-12
 
 * `11a0e6f` should make it compatible with doctrine 3 (Janusz Slota)
