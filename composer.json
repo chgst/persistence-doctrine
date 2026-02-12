@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "chgst/common":"^0.3.1",
-        "doctrine/persistence": "^3.2.0"
+        "doctrine/persistence": "^3.2.0 || ^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -18,10 +18,10 @@
         }
     },
     "require-dev": {
-        "phpspec/phpspec": "^7.4.0",
-        "friends-of-phpspec/phpspec-code-coverage": "^v6.3.0",
-        "php-coveralls/php-coveralls": "^v2.6.0",
-        "doctrine/orm": "^2.16.2",
+        "phpspec/phpspec": "^7.4.0 || ^8.0",
+        "friends-of-phpspec/phpspec-code-coverage": "^6.3.0 || ^7.0",
+        "php-coveralls/php-coveralls": "^2.6.0",
+        "doctrine/orm": "^3.0",
         "doctrine/mongodb-odm": "^2.5.2",
         "dg/bypass-finals": "^1.5"
     },

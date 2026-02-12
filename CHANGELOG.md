@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.4.0 created on 2026-02-12
+
+* `11a0e6f` should make it compatible with doctrine 3 (Janusz Slota)
+
 ## Version 0.3.0 created on 2023-10-08
 
 * `12945e0` clean up (Janusz Slota)

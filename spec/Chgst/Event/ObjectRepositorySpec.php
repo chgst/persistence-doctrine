@@ -12,8 +12,8 @@ use Doctrine\ODM\MongoDB\Iterator\Iterator;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ODM\MongoDB\Query\Query;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query as ORMQuery;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
@@ -45,8 +45,13 @@ class ObjectRepositorySpec extends ObjectBehavior
         $this->append($event);
     }
 
-    function it_throws_exception_if_it_cannot_construct_iterator()
+    function it_throws_exception_if_it_cannot_construct_iterator(
+        ObjectManager $manager,
+        \Doctrine\Persistence\ObjectRepository $repository
+    )
     {
+        $manager->getRepository(Argument::any())->willReturn($repository);
+
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('getIterator')
@@ -55,7 +60,7 @@ class ObjectRepositorySpec extends ObjectBehavior
 
     function it_can_get_iterator_for_the_event_stream_if_it_is_defined(
         ObjectManager $manager,
-        \IteratorAggregate $repo1,
+        IterableRepository $repo1,
         \Iterator $iterator
     )
     {
@@ -71,7 +76,7 @@ class ObjectRepositorySpec extends ObjectBehavior
         ObjectManager $manager,
         EntityRepository $repository,
         QueryBuilder $queryBuilder,
-        AbstractQuery $query,
+        ORMQuery $query,
         \Iterator $iterator
     )
     {
@@ -82,7 +87,7 @@ class ObjectRepositorySpec extends ObjectBehavior
         $queryBuilder->getQuery()->willReturn($query);
         $queryBuilder->orderBy(Argument::any(), Argument::any())->shouldBeCalled()->willReturn($queryBuilder);
 
-        $query->iterate()->willReturn($iterator);
+        $query->toIterable()->willReturn($iterator);
 
         $this->getIterator();
     }
@@ -116,3 +121,5 @@ class TestEvent implements EventInterface
 {
     use EventTrait, HasPayloadTrait, OnAggregateTrait;
 }
+
+interface IterableRepository extends \Doctrine\Persistence\ObjectRepository, \IteratorAggregate {}
