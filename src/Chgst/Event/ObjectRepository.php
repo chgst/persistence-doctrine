@@ -32,20 +32,17 @@ class ObjectRepository implements RepositoryInterface
     {
         $repository = $this->manager->getRepository($this->eventClass);
 
-        if ($repository)
+        if (method_exists($repository, 'getIterator'))
         {
-            if (method_exists($repository, 'getIterator'))
-            {
-                return $repository->getIterator();
-            }
-            if (is_a($repository, 'Doctrine\ODM\MongoDB\Repository\DocumentRepository'))
-            {
-                return $this->getMongoDbIterator($repository);
-            }
-            if (is_a($repository, 'Doctrine\ORM\EntityRepository'))
-            {
-                return $this->getORMIterator($repository);
-            }
+            return $repository->getIterator();
+        }
+        if (is_a($repository, 'Doctrine\ODM\MongoDB\Repository\DocumentRepository'))
+        {
+            return $this->getMongoDbIterator($repository);
+        }
+        if (is_a($repository, 'Doctrine\ORM\EntityRepository'))
+        {
+            return $this->getORMIterator($repository);
         }
 
         throw new \InvalidArgumentException('Unable to construct iterator');
@@ -69,7 +66,7 @@ class ObjectRepository implements RepositoryInterface
         return $qb
             ->orderBy('e.createdAt','ASC')
             ->getQuery()
-            ->iterate()
+            ->toIterable()
         ;
     }
 }
