@@ -25,7 +25,7 @@ jobs:
             COMPOSER_MEMORY_LIMIT: -1
       - run:
           name: "run test"
-          command: mkdir -p build/tests && vendor/bin/phpspec run -fjunit > build/tests/test-results.xml
+          command: mkdir -p build/tests && vendor/bin/phpspec run -fjunit > build/tests/test-results.xml 2>&1
       - store_artifacts:
           path: build/logs/
       - store_test_results:
