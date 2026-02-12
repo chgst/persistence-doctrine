@@ -16,7 +16,8 @@ jobs:
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
-      - run: echo "xdebug.mode=coverage" | sudo tee -a /etc/php.d/xdebug.ini > /dev/null
+      - run: sudo docker-php-ext-enable xdebug
+      - run: echo "xdebug.mode=coverage" | sudo tee -a "$(php -d 'display_errors=stderr' -r 'echo php_ini_scanned_dir();')/99-xdebug.ini"
       - run: curl -s https://getcomposer.org/installer | php
       - run:
           name: "install deps"
